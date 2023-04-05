@@ -1,0 +1,20 @@
+.hero__table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 16px;      
+}
+
+.hero__table th {
+    font-weight: bold;
+    text-align: center;
+}
+  
+.hero__table td, th {
+    border: 1px solid black;
+    padding: 10px;
+  }
+  
+.hero__table > tr:nth-child(even) {
+    background-color: #ddd;
+  }
+  

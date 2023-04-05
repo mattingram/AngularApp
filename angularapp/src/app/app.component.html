@@ -1,0 +1,22 @@
+﻿<h1 id="tableLabel">Super Heros</h1>
+
+<p *ngIf="!heros"><em>Loading... Please refresh once the ASP.NET backend has started.</em></p>
+
+<table *ngIf="heros" class="hero__table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Place</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let hero of heros">
+            <td>{{ hero.name }}</td>
+            <td>{{ hero.firstName }}</td>
+            <td>{{ hero.lastName }}</td>
+            <td>{{ hero.place }}</td>
+        </tr>
+    </tbody>
+</table>
