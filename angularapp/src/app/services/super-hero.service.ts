@@ -12,7 +12,7 @@ export class SuperHeroService {
 
   constructor(private http: HttpClient) { }
 
-  public getSuperHeros() : Observable<SuperHero[]> {
+  public getSuperHeroes() : Observable<SuperHero[]> {
     return this.http.get<SuperHero[]>(`${environment.apiUrl}/${this.url}`);
   }
 

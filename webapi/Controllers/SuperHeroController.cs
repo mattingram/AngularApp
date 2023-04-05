@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
+using webapi.Services;
 
 namespace webapi.Controllers
 {
@@ -8,59 +9,47 @@ namespace webapi.Controllers
 	[ApiController]
 	public class SuperHeroController : Controller
 	{
-		private readonly DataContext _context;
+		private readonly SuperHeroService _service;
 
-		public SuperHeroController(DataContext context)
+		public SuperHeroController(SuperHeroService service)
 		{
-			_context = context;
+			_service = service;
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<List<SuperHero>>> GetSuperHeros()
+		public async Task<ActionResult<List<SuperHero>>> GetSuperHeroes()
 		{
-			return Ok(await _context.SuperHeros.ToListAsync());
+			return Ok(await _service.GetSuperHeroes());
 		}
 
 		[HttpPost]
 		public async Task<ActionResult<List<SuperHero>>> CreateSuperHero(SuperHero hero)
 		{
-			_context.SuperHeros.Add(hero);
-			await _context.SaveChangesAsync();
-
-			return Ok(await _context.SuperHeros.ToListAsync());
+			return Ok(await _service.CreateSuperHero(hero));
 		}
 
 		[HttpPut]
 		public async Task<ActionResult<List<SuperHero>>> UpdateSuperHero(SuperHero hero)
 		{
-			var dbHero = await _context.SuperHeros.FindAsync(hero.Id);
-			if (dbHero == null)
+			var dbHeroes = await _service.UpdateSuperHero(hero);
+			if (dbHeroes == null)
 			{
 				return NotFound();
 			}
 
-			dbHero.Name = hero.Name;
-			dbHero.FirstName = hero.FirstName;
-			dbHero.LastName = hero.LastName;
-			dbHero.Place = hero.Place;
-
-			await _context.SaveChangesAsync();
-
-			return Ok(await _context.SuperHeros.ToListAsync());
+			return Ok(dbHeroes);
 		}
 
 		[HttpDelete("{id}")]
 		public async Task<ActionResult<List<SuperHero>>> DeleteSuperHero(SuperHero hero)
 		{
-			var dbHero = await _context.SuperHeros.FindAsync(hero.Id);
+			var dbHero = await _service.DeleteSuperHero(hero);
 			if (dbHero == null)
 			{
 				return NotFound();
 			}
 
-			_context.SuperHeros.Remove(dbHero);
-			await _context.SaveChangesAsync();
-			return Ok(await _context.SuperHeros.ToListAsync());
+			return Ok(dbHero);
 		}
 	}
 }

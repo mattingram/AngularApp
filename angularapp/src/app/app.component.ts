@@ -17,7 +17,7 @@ export class AppComponent {
 
   ngOnInit() : void {
     this.superHeroService
-      .getSuperHeros()
+      .getSuperHeroes()
       .subscribe({
         next: result => this.heroes = result
       });
