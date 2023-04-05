@@ -10,7 +10,8 @@ import { SuperHeroService } from './services/super-hero.service';
 })
 export class AppComponent {
   title = 'SuperHero.UI';
-  heros: SuperHero[] = [];
+  heroes: SuperHero[] = [];
+  heroToEdit?: SuperHero;
 
   constructor(private superHeroService: SuperHeroService) {}
 
@@ -18,28 +19,19 @@ export class AppComponent {
     this.superHeroService
       .getSuperHeros()
       .subscribe({
-        next: result => this.heros = result
+        next: result => this.heroes = result
       });
   }
-}
-/*
-export class AppComponent {
-  public forecasts?: WeatherForecast[];
 
-  constructor(http: HttpClient) {
-    http.get<WeatherForecast[]>('/weatherforecast').subscribe({
-      next: result => this.forecasts = result,
-      error: error => console.error(error)
-    })
-  };
+  updateHeroList(heros: SuperHero[]) {
+    this.heroes = heros;
+  }
 
-  title = 'angularapp';
-}
+  initNewHero() {
+    this.heroToEdit = new SuperHero();
+  }
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
+  editHero(hero: SuperHero) {
+    this.heroToEdit = hero;
+  }
 }
-*/

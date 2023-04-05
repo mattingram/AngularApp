@@ -1,8 +1,10 @@
 ﻿<h1 id="tableLabel">Super Heros</h1>
 
-<p *ngIf="!heros"><em>Loading... Please refresh once the ASP.NET backend has started.</em></p>
+<p *ngIf="!heroes"><em>Loading... Please refresh once the ASP.NET backend has started.</em></p>
 
-<table *ngIf="heros" class="hero__table">
+<button (click)="initNewHero()">Create New Hero</button>
+
+<table *ngIf="heroes" class="hero__table">
     <thead>
         <tr>
             <th>Name</th>
@@ -12,11 +14,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let hero of heros">
+        <tr *ngFor="let hero of heroes">
             <td>{{ hero.name }}</td>
             <td>{{ hero.firstName }}</td>
             <td>{{ hero.lastName }}</td>
             <td>{{ hero.place }}</td>
+            <td><button (click)="editHero(hero)">Edit</button></td>
         </tr>
     </tbody>
 </table>
+
+<app-edit-hero [hero]="heroToEdit" (herosUpdated)="updateHeroList($event)"></app-edit-hero>
