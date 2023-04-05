@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using webapi.Data;
 
 namespace webapi.Controllers
 {
@@ -6,19 +8,17 @@ namespace webapi.Controllers
 	[ApiController]
 	public class SuperHeroController : Controller
 	{
-		[HttpGet]
-		public async Task<List<SuperHero>> GetSuperHeros()
+		private readonly DataContext _context;
+
+		public SuperHeroController(DataContext context)
 		{
-			return new List<SuperHero>()
-			{
-				new SuperHero()
-				{
-					Name = "Spider Man",
-					FirstName = "Peter",
-					LastName = "Parker",
-					Place = "New York"
-				}
-			};
+			_context = context;
+		}
+
+		[HttpGet]
+		public async Task<ActionResult<List<SuperHero>>> GetSuperHeros()
+		{
+			return Ok(await _context.SuperHeros.ToListAsync());
 		}
 	}
 }
