@@ -15,20 +15,20 @@ namespace webapi.Services
 
 		public virtual async Task<List<SuperHero>> GetSuperHeroes()
 		{
-			return await _context.SuperHeroes.ToListAsync();
+			return await _context.SuperHeros.ToListAsync();
 		}
 
 		public async Task<SuperHero?> GetSuperHero(SuperHero hero)
 		{
-			return await _context.SuperHeroes.FindAsync(hero.Id);
+			return await _context.SuperHeros.FindAsync(hero.Id);
 		}
 
 		public async Task<List<SuperHero>> CreateSuperHero(SuperHero hero)
 		{
-			_context.SuperHeroes.Add(hero);
+			_context.SuperHeros.Add(hero);
 			await _context.SaveChangesAsync();
 
-			return await _context.SuperHeroes.ToListAsync();
+			return await _context.SuperHeros.ToListAsync();
 		}
 
 		public async Task<List<SuperHero>?> UpdateSuperHero(SuperHero hero)
@@ -46,7 +46,7 @@ namespace webapi.Services
 
 			await _context.SaveChangesAsync();
 
-			return await _context.SuperHeroes.ToListAsync();
+			return await _context.SuperHeros.ToListAsync();
 		}
 
 		public async Task<List<SuperHero>?> DeleteSuperHero(SuperHero hero)
@@ -57,9 +57,9 @@ namespace webapi.Services
 				return null;
 			}
 
-			_context.SuperHeroes.Remove(dbHero);
+			_context.SuperHeros.Remove(dbHero);
 			await _context.SaveChangesAsync();
-			return await _context.SuperHeroes.ToListAsync();
+			return await _context.SuperHeros.ToListAsync();
 		}
 	}
 }

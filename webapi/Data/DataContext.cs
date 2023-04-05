@@ -6,7 +6,7 @@ namespace webapi.Data
 	{
 		public DataContext(DbContextOptions<DataContext> options) : base (options) {}
 
-		public DbSet<SuperHero> SuperHeroes => Set<SuperHero>();
+		public DbSet<SuperHero> SuperHeros => Set<SuperHero>();
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
